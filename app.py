@@ -48,16 +48,8 @@ def redirect_page():
 # route to save the Discover Weekly songs to a playlist
 @app.route('/quizSelection')
 def quiz_selection():
-    try: 
-        # get the token info from the session
-        token_info = get_token()
-    except:
-        # if the token info is not found, redirect the user to the login route
-        print('User not logged in')
-        return redirect("/")
 
-    # create a Spotipy instance with the access token
-    sp = spotipy.Spotify(auth=token_info['access_token'])
+    top_artists = get_top_artists()
 
    # Get user's top 5 most listened to artists from medium_term
    # Strip the JSON down to just artist, image, and ID
@@ -87,5 +79,42 @@ def create_spotify_oauth():
         redirect_uri = url_for('redirect_page', _external=True),
         scope='user-top-read '
     )
+
+def get_top_artists():
+    try: 
+        # get the token info from the session
+        token_info = get_token()
+    except:
+        # if the token info is not found, redirect the user to the login route
+        print('User not logged in')
+        return redirect("/")
+
+    # create a Spotipy instance with the access token
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+
+    # get top 5 artists for user in the last 6 months
+    top_artists_data = sp.current_user_top_artists(limit = 5)
+
+    # create dictionary that will be returned 
+    top_artists = []
+
+    # iterate over artists and add only name, id, and image to top_artists
+    for artist in top_artists_data['items']:
+        artist_name = artist['name']
+        artist_id = artist['id']    
+        # if artist has an image, get the first one
+        if (len(artist['images'] != 0)):
+            artist_image = artist['images'][0]['url']
+        else:   # if artist doesn't have an image, return empty string
+            artist_image = ''   
+
+        # append artist dictionary to list of top 5
+        top_artists.append({
+        'name': artist_name,
+        'id': artist_id,
+        'image': artist_image
+        })
+    
+    return top_artists
 
 app.run(debug=True)
