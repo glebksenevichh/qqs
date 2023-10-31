@@ -50,10 +50,26 @@ def redirect_page():
 def quiz_selection():
 
     top_artists = get_top_artists()
-    return top_artists
+
+    return render_template('quiz_select.html', top_artists=top_artists)
    # Get user's top 5 most listened to artists from medium_term
    # Strip the JSON down to just artist, image, and ID
    # return JSON
+
+#   tbd
+#   arguments:
+#   id = spotify artist id
+@app.route('/quiz/<string:id>')
+def quiz(id):
+    return id
+
+#   converts spotify artist url to artist id
+#   arguments:
+#   artist_url = spotify artist url
+@app.route('/urlToId', methods=['POST'])
+def urlToId():
+    artist_url = request.form.get('artist_url')
+    return artist_url
 
 # function to get the token info from the session
 def get_token():
