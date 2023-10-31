@@ -50,7 +50,7 @@ def redirect_page():
 def quiz_selection():
 
     top_artists = get_top_artists()
-
+    return top_artists
    # Get user's top 5 most listened to artists from medium_term
    # Strip the JSON down to just artist, image, and ID
    # return JSON
