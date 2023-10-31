@@ -5,7 +5,7 @@ import time
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from flask import Flask, request, url_for, session, redirect
+from flask import Flask, request, url_for, session, redirect, render_template
 
 # initialize Flask app
 app = Flask(__name__)
@@ -21,7 +21,8 @@ TOKEN_INFO = 'token_info'
 
 # route to handle logging in
 @app.route('/')
-
+def home():
+    return render_template('home.html')
 
 @app.route('/login')
 def login():
@@ -29,7 +30,7 @@ def login():
     auth_url = create_spotify_oauth().get_authorize_url()
     # redirect the user to the authorization URL
     return redirect(auth_url)
-
+    
 # route to handle the redirect URI after authorization
 @app.route('/redirect')
 def redirect_page():
