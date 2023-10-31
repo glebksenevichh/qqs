@@ -103,7 +103,7 @@ def get_top_artists():
         artist_name = artist['name']
         artist_id = artist['id']    
         # if artist has an image, get the first one
-        if (len(artist['images'] != 0)):
+        if (len(artist['images']) != 0):
             artist_image = artist['images'][0]['url']
         else:   # if artist doesn't have an image, return empty string
             artist_image = ''   
