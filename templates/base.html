@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+<head>
+    <title>{% block title %}Default Title{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Common navigation menu goes here -->
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <!-- Common footer content goes here -->
+    </footer>
+</body>
+</html>
