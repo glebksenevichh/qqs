@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Selection Form</title>
+</head>
+<body>
+    <form method="POST" action="/submit">
+        <p>Choose an artist to quiz yourself on:</p>
+        {% for artist in top_artists %}
+            <input type="radio" name="choice" value="{{ artist }}"> {{ artist }}<br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
