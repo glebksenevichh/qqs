@@ -45,16 +45,11 @@ def redirect_page():
     # redirect the user to the quiz_selection route
     return redirect(url_for('quiz_selection',_external=True))
 
-# route to save the Discover Weekly songs to a playlist
+# route to render quiz selection page
 @app.route('/quizSelection')
 def quiz_selection():
-
-    top_artists = get_top_artists()
-
+    top_artists = get_top_artists() # get top 5 artists name, id, and image
     return render_template('quiz_select.html', top_artists=top_artists)
-   # Get user's top 5 most listened to artists from medium_term
-   # Strip the JSON down to just artist, image, and ID
-   # return JSON
 
 #   tbd
 #   arguments:
@@ -67,7 +62,7 @@ def quiz(id):
 #   arguments:
 #   artist_url = spotify artist url
 @app.route('/urlToId', methods=['POST'])
-def urlToId():
+def grab_url():
     artist_url = request.form.get('artist_url')
     return artist_url
 
