@@ -59,17 +59,14 @@ def quiz_selection():
 #   tbd
 #   arguments:
 #   id = spotify artist id
-@app.route('/quiz/<string:id>')
+@app.route('/quiz/<string:id>', methods=['GET','POST'])
 def quiz(id):
+    if request.method == 'POST':
+        id = request.form['artist_url']
+    else:
+        id = id
+        
     return id
-
-#   converts spotify artist url to artist id
-#   arguments:
-#   artist_url = spotify artist url
-@app.route('/urlToId', methods=['POST'])
-def urlToId():
-    artist_url = request.form.get('artist_url')
-    return artist_url
 
 # function to get the token info from the session
 def get_token():
