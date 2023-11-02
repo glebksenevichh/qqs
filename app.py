@@ -56,7 +56,8 @@ def quiz_selection():
 #   id = spotify artist id
 @app.route('/quiz/<string:id>')
 def quiz(id):
-    return id
+    questions = generate_questions(id)
+    return questions
 
 #   converts spotify artist url to artist id
 #   arguments:
@@ -127,5 +128,8 @@ def get_top_artists():
         })
     
     return top_artists
+
+def generate_questions(artist_id):
+    return questions
 
 app.run(debug=True)

@@ -1,0 +1,42 @@
+{
+    "artist_questions": [
+        {
+            "id": 0,
+            "question": "What genres is <artist> most commonly associated with?"
+        },
+        {
+            "id": 1,
+            "question": "Which is <artist>’s most popular song?"
+        },
+        {
+            "id": 2,
+            "question": "Which song by <artist> have you streamed the most?"
+        }
+        {
+            "id": 3,
+            "question": "How many albums has <artist> released on Spotify?"
+        },
+        {
+            "id": 4,
+            "question": "In what year did <artist> release their first album?"
+        }
+        {
+            "id": 5,
+            "question": "Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?"
+        }
+    ],
+    "album_questions": [
+        {
+            "id": 1,
+            "question": "Which album came first: '<album1>' or '<album2>'?"
+        },
+        {
+            "id": 2,
+            "question": "Name a song from <album>."
+        },
+        {
+            "id": 3,
+            "question": "What year did <album> release?"
+        }
+    ]
+}
