@@ -11,7 +11,7 @@
         {
             "id": 2,
             "question": "Which song by <artist> have you streamed the most?"
-        }
+        },
         {
             "id": 3,
             "question": "How many albums has <artist> released on Spotify?"
@@ -19,7 +19,7 @@
         {
             "id": 4,
             "question": "In what year did <artist> release their first album?"
-        }
+        },
         {
             "id": 5,
             "question": "Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?"

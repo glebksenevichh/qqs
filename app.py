@@ -2,6 +2,7 @@
 
 # import necessary modules
 import time
+import json
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -130,6 +131,44 @@ def get_top_artists():
     return top_artists
 
 def generate_questions(artist_id):
-    return questions
+    # Boilerplate Spotify authorization 
+    try: 
+        # get the token info from the session
+        token_info = get_token()
+    except:
+        # if the token info is not found, redirect the user to the login route
+        print('User not logged in')
+        return redirect("/")
+    # create a Spotipy instance with the access token
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+
+    # Get artist data
+    artist_info = sp.artist(artist_id)
+    albums = sp.artist_albums(artist_id)
+    top_tracks = sp.artist_top_tracks(artist_id)
+    artist = [artist_info, albums, top_tracks]  # Store all data needed or answers in one artist list
+
+    # Load in questions
+    with open('questions.json', 'r') as file:
+        questions_data = json.load(file)
+
+    # Replace artist_questions placeholders
+    for artist_question in questions_data["artist_questions"]:
+        artist_question["question"] = artist_question["question"].replace("<artist>", artist["name"])
+    
+    # TODO: Generate correct answers and other answer choices
+    artist_answers = generate_artist_answers(artist)
+    album_answers = generate_album_answers(artist)
+
+    # TODO: Create one dictionary that stores questions, possible answers, and correct answer
+    quiz = {}
+
+    return quiz
+
+def generate_artist_answers():
+    return
+
+def generate_album_answers():
+    return
 
 app.run(debug=True)
