@@ -150,25 +150,26 @@ def generate_questions(artist_id):
 
     # Load in questions
     with open('questions.json', 'r') as file:
-        questions_data = json.load(file)
+        questions = json.load(file)
 
     # Replace artist_questions placeholders
-    for artist_question in questions_data["artist_questions"]:
+    for artist_question in questions["artist_questions"]:
         artist_question["question"] = artist_question["question"].replace("<artist>", artist["name"])
     
     # TODO: Generate correct answers and other answer choices
-    artist_answers = generate_artist_answers(artist)
-    album_answers = generate_album_answers(artist)
+    artist_answers = generate_artist_answers(artist, questions)
+    album_answers = generate_album_answers(artist, questions)
 
     # TODO: Create one dictionary that stores questions, possible answers, and correct answer
+    # question -> correct and possible answers
     quiz = {}
 
     return quiz
 
-def generate_artist_answers():
+def generate_artist_answers(artist, questions):
     return
 
-def generate_album_answers():
+def generate_album_answers(artist, questions):
     return
 
 app.run(debug=True)
