@@ -2,41 +2,212 @@
     "artist_questions": [
         {
             "id": 0,
-            "question": "What genres is <artist> most commonly associated with?"
+            "question": "What genres is <artist> most commonly associated with?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
         },
         {
             "id": 1,
-            "question": "Which is <artist>’s most popular song?"
+            "question": "Which is <artist>'s most popular song?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
         },
         {
             "id": 2,
-            "question": "Which song by <artist> have you streamed the most?"
+            "question": "Which song by <artist> have you streamed the most?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
         },
         {
             "id": 3,
-            "question": "How many albums has <artist> released on Spotify?"
+            "question": "How many albums has <artist> released on Spotify?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
         },
         {
             "id": 4,
-            "question": "In what year did <artist> release their first album?"
+            "question": "In what year did <artist> release their first album?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
         },
         {
             "id": 5,
-            "question": "Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?"
+            "question": "Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
         }
     ],
     "album_questions": [
         {
             "id": 1,
-            "question": "Which album came first: '<album1>' or '<album2>'?"
+            "question": "Which album came first: '<album1>' or '<album2>'?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
         },
         {
             "id": 2,
-            "question": "Name a song from <album>."
+            "question": "Name a song from <album>.",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
         },
         {
             "id": 3,
-            "question": "What year did <album> release?"
+            "question": "What year did <album> release?",
+            "answers:":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
         }
     ]
 }
