@@ -157,8 +157,8 @@ def generate_questions(artist_id):
         artist_question["question"] = artist_question["question"].replace("<artist>", artist["name"])
     
     # TODO: Generate correct answers and other answer choices
-    artist_answers = generate_artist_answers(artist, questions)
-    album_answers = generate_album_answers(artist, questions)
+    generate_artist_answers(artist, questions)
+    generate_album_answers(artist, questions)
 
     # TODO: Create one dictionary that stores questions, possible answers, and correct answer
     # question -> correct and possible answers
@@ -167,6 +167,25 @@ def generate_questions(artist_id):
     return quiz
 
 def generate_artist_answers(artist, questions):
+    # Iterate over every question in list
+    for question in questions['artist_questions']:
+        answers = question['answers']   # Get list of empty answer fields to be filled out
+
+        # id of question defines what info we need to pull for our answers
+        id = question['id']
+        match id:
+            case 0: # What genre is <artist> associated with?
+                return
+            case 1: # Which is <artist>'s most popular song?
+                return
+            case 2: # Which song by <artist> have you streamed the most?
+                return
+            case 3: # How many albums has <artist> released on Spotify?
+                return
+            case 4: # In what year did <artist> release their first album?
+                return
+            case 5: # Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?
+                return
     return
 
 def generate_album_answers(artist, questions):
