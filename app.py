@@ -179,13 +179,18 @@ def generate_artist_answers(artist, questions):
                     genres = json.load(f)['music_genres']
                 
                 # Fill out answer choices with three random genres
-                genres = random.sample(genres, 3)   # Select 3 random genres from list
-                for answerIndex in range(1, 3):
-                    question['answers'][answerIndex]['answer'] = genres[answerIndex]
+                genres = random.sample(genres, 3)   # Select 4 random genres from list
+                for answerIndex in range(1, 4):
+                    question['answers'][answerIndex]['answer'] = genres[answerIndex-1]
 
             case 1: # Which is <artist>'s most popular song?
                 # Get correct answer
-                question['answers'][0]['answer'] = artist[2]['tracks'][0]['name']  
+                question['answers'][0]['answer'] = artist[2]['tracks'][0]['name']
+
+                # Fill out answer choices with three other songs
+                incorrectChoices = random.sample(range(1, 4), 3)
+                for answerIndex in range(1,4):
+                    question['answers'][answerIndex]['answer'] = artist[2]['tracks'][incorrectChoices[answerIndex-1]]['name']
 
             case 2: # Which song by <artist> have you streamed the most?
                 # Get correct answer
@@ -194,6 +199,20 @@ def generate_artist_answers(artist, questions):
             case 3: # How many albums has <artist> released on Spotify?
                 # Get correct answer
                 question['answers'][0]['answer'] = artist[1]['total']
+
+                # Generate incorrect answer choices
+                num = question['answers'][0]['answer']
+                answers_generated = 0
+                incorrect_choices = []
+                while answers_generated < 4:
+                    random_num = random.randint(max(1, num - 2), num + 2)
+                    if (random_num != num and random_num not in incorrect_choices):
+                        answers_generated = answers_generated + 1
+                        incorrect_choices.append(random_num)
+
+                # Fill out answers
+                for answerIndex in range(1,4):
+                    question['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]
 
             case 4: # In what year did <artist> release their first album?
                 # Get correct answer
