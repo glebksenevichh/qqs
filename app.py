@@ -3,6 +3,7 @@
 # import necessary modules
 import time
 import json
+import random
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -144,7 +145,7 @@ def generate_questions(artist_id):
 
     # Get artist data
     artist_info = sp.artist(artist_id)
-    albums = sp.artist_albums(artist_id)
+    albums = sp.artist_albums(artist_id, album_type='album')
     top_tracks = sp.artist_top_tracks(artist_id)
     artist = [artist_info, albums, top_tracks]  # Store all data needed or answers in one artist list
 
@@ -154,38 +155,53 @@ def generate_questions(artist_id):
 
     # Replace artist_questions placeholders
     for artist_question in questions["artist_questions"]:
-        artist_question["question"] = artist_question["question"].replace("<artist>", artist["name"])
+        artist_name = artist[0]['name']
+        artist_question["question"] = artist_question["question"].replace("<artist>", artist_name)
     
     # TODO: Generate correct answers and other answer choices
     generate_artist_answers(artist, questions)
     generate_album_answers(artist, questions)
 
-    # TODO: Create one dictionary that stores questions, possible answers, and correct answer
-    # question -> correct and possible answers
-    quiz = {}
-
-    return quiz
+    return questions
 
 def generate_artist_answers(artist, questions):
     # Iterate over every question in list
     for question in questions['artist_questions']:
-        answers = question['answers']   # Get list of empty answer fields to be filled out
-
         # id of question defines what info we need to pull for our answers
         id = question['id']
         match id:
             case 0: # What genre is <artist> associated with?
-                return
+                # Get correct answer
+                question['answers'][0]['answer'] = artist[0]['genres'][0]
+
+                # Open and load genres list
+                with open('genres.json') as f:
+                    genres = json.load(f)['music_genres']
+                
+                # Fill out answer choices with three random genres
+                genres = random.sample(genres, 3)   # Select 3 random genres from list
+                for answerIndex in range(1, 3):
+                    question['answers'][answerIndex]['answer'] = genres[answerIndex]
+
             case 1: # Which is <artist>'s most popular song?
-                return
+                # Get correct answer
+                question['answers'][0]['answer'] = artist[2]['tracks'][0]['name']  
+
             case 2: # Which song by <artist> have you streamed the most?
-                return
+                # Get correct answer
+                print("nothing here yet")
+
             case 3: # How many albums has <artist> released on Spotify?
-                return
+                # Get correct answer
+                question['answers'][0]['answer'] = artist[1]['total']
+
             case 4: # In what year did <artist> release their first album?
-                return
+                # Get correct answer
+                #question['answers'][0]['answer'] = artist[1][]
+                print("nothing here yet")
             case 5: # Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?
                 return
+    
     return
 
 def generate_album_answers(artist, questions):

@@ -1,0 +1,32 @@
+{
+    "music_genres": [
+      "Pop", "Dance",
+      "Rock", "Alternative",
+      "Jazz", "Blues",
+      "Classical", "Orchestral",
+      "Hip-Hop", "Rap",
+      "Electronic", "EDM",
+      "Country", "Folk",
+      "Reggae", "Ska",
+      "R&B", "Soul",
+      "Metal", "Heavy Metal",
+      "Punk", "Hardcore",
+      "Funk", "Disco",
+      "Ambient", "Experimental",
+      "Gospel", "Christian",
+      "World", "Ethnic",
+      "Indie", "Shoegaze",
+      "Techno", "House",
+      "Grunge", "Post-Grunge",
+      "Salsa", "Latin",
+      "J-Pop", "K-Pop",
+      "Reggaeton", "Trap",
+      "Psychedelic", "Space Rock",
+      "Blues Rock", "Classic Rock",
+      "Acoustic", "Singer-Songwriter",
+      "New Wave", "Synthpop",
+      "Electro Swing", "Swing Revival",
+      "Dubstep", "Drum and Bass",
+      "Baroque", "Romantic"
+    ]
+  }
