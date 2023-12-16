@@ -5,7 +5,7 @@ import time
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from flask import Flask, request, url_for, session, redirect, render_template
+from flask import Flask, request, url_for, session, redirect, render_template, flash
 
 # initialize Flask app
 app = Flask(__name__)
@@ -45,28 +45,51 @@ def redirect_page():
     # redirect the user to the quiz_selection route
     return redirect(url_for('quiz_selection',_external=True))
 
-# route to save the Discover Weekly songs to a playlist
+ # route to save the Discover Weekly songs to a playlist
 @app.route('/quizSelection')
 def quiz_selection():
 
     top_artists = get_top_artists()
 
-    return render_template('quiz_select.html', top_artists=top_artists)
-   # Get user's top 5 most listened to artists from medium_term
-   # Strip the JSON down to just artist, image, and ID
-   # return JSON
+    return render_template('select.html', top_artists=top_artists)
 
-#   tbd
-#   arguments:
-#   id = spotify artist id
-@app.route('/quiz/<string:id>', methods=['GET','POST'])
-def quiz(id):
-    if request.method == 'POST':
-        id = request.form['artist_url']
+@app.route('/quiz_redirect/<string:artist_id>')
+def quiz_redirect(artist_id):
+
+    # Check for valid input
+    artist_id_valid = is_valid_artist(artist_id)
+
+    if artist_id_valid:
+        return artist_id
     else:
-        id = id
-        
-    return id
+        flash('Invalid URL. Please input a valid Spotify Artist URL.')  # Flash a message
+        return redirect(url_for('quiz_selection'))  # Redirect to the quiz_selection route
+    
+# uses spotify to check if the argument is a valid spotify artist id
+def is_valid_artist(artist_id):
+    try: 
+        # get the token info from the session
+        token_info = get_token()
+    except:
+        # if the token info is not found, redirect the user to the login route
+        print('User not logged in')
+        return redirect("/")
+    
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+
+    try:
+        # Attempt to retrieve information about the artist
+        artist_info = sp.artist(artist_id)
+        if artist_info:
+            print(f"Artist ID {artist_id} is valid. Artist name: {artist_info['name']}")
+            return True
+    except spotipy.SpotifyException as e:
+        # Handle exceptions (e.g., invalid artist ID)
+        print(f"Error: {e}")
+    
+    print(f"Artist ID {artist_id} is not valid.")
+    return False
+
 
 # function to get the token info from the session
 def get_token():
