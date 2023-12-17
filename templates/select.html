@@ -15,27 +15,28 @@ content %}
     object-fit: cover; /* Preserve aspect ratio, covering the entire container */
     border-radius: 50%; /* Ensure the image is also circular within the container */
   }
+  
 </style>
 <div class="container-fluid mt-4 pb-5">
-  <div class="row">
+  <div class="row justify-content-center">
     <!--  1st column -->
-    <div class="col-md-6 mx-auto">
+    <div class="col-md-4 col-sm-12 "> <!-- <div class="col-md-6"></div> -->
       <div class="row">
         <div class="col-md-12">
           <div class="container mt-4 pt-5 rounded text-center">
-            <p>Choose an artist to quiz yourself on:</p>
+            <h3>Choose an artist to quiz yourself on:</h3>
           </div>
         </div>
       </div>
       {% for artist in top_artists %}
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row justify-content-center">
+        <div class="col-md-5">
           <a
             href="{{ url_for('quiz_redirect', artist_id=artist.id) }}"
             style="text-decoration: none; color: inherit"
           >
             <div
-              class="container clickable-container mt-4 rounded text-center"
+              class="container clickable-container mt-4 rounded text-center" style="min-width: 150px;"
             >
               <div
                 class="d-flex align-items-center justify-content-center image-cropper"
@@ -54,12 +55,12 @@ content %}
       {% endfor %}
     </div>
     <!--  2nd column -->
-    <div class="col-md-6 mx-auto">
-      <div class="row">
+    <div class="col-md-4 col-sm-12  ">
+      <div class="row justify-content-center">
         <div class="col-md-12">
           <div class="container mt-4 p-5 rounded text-center">
-            <p>Or enter their Spotify URL:</p>
-             <div class="input-group mb-3 pt-5">
+            <h3>Or enter their Spotify URL:</h3>
+             <div class="input-group mb-3 pt-5" style="width: 300px; margin: 0 auto;">
               <input
                 type="text"
                 class="form-control"
@@ -87,16 +88,27 @@ content %}
                   var spotifyUrl =
                     document.getElementById("spotifyUrlInput").value;
 
-                  // Extract the artist ID from the Spotify URL
-                  var artistId = spotifyUrl.split("/")[4].split("?")[0];
+                    if (typeof spotifyUrl === 'undefined' || !spotifyUrl.includes('/')) {
+                    var artistId = null;
+                  } else {
+                    // Extract the artist ID from the Spotify URL
+                    var artistId = spotifyUrl.split("/")[4].split("?")[0];
+                  }
 
+                    if (artistId === null) {
+                    var destinationUrl =
+                    "{{ url_for('quiz_redirect', artist_id='__artist_id__') }}".replace(
+                      "__artist_id__",
+                      'invalid'
+                    );
+                  } else {
                   // Construct the URL with the extracted artist ID as the artist_id parameter
                   var destinationUrl =
                     "{{ url_for('quiz_redirect', artist_id='__artist_id__') }}".replace(
                       "__artist_id__",
                       artistId
                     );
-
+                  }
                   // Redirect to the constructed URL
                   window.location.href = destinationUrl;
                 });
@@ -107,5 +119,6 @@ content %}
       </div>
     </div>
   </div>
-  {% endblock %}
 </div>
+{% endblock %}
+

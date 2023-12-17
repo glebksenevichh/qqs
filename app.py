@@ -55,7 +55,9 @@ def quiz_selection():
 
 @app.route('/quiz_redirect/<string:artist_id>')
 def quiz_redirect(artist_id):
-
+    print(
+        'redirecting'
+    )
     # Check for valid input
     artist_id_valid = is_valid_artist(artist_id)
 
@@ -77,6 +79,9 @@ def is_valid_artist(artist_id):
     
     sp = spotipy.Spotify(auth=token_info['access_token'])
 
+    if(artist_id == 'invalid'):
+        print(f"URL is not valid.")
+        return False
     try:
         # Attempt to retrieve information about the artist
         artist_info = sp.artist(artist_id)
