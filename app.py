@@ -216,8 +216,24 @@ def generate_artist_answers(artist, questions):
 
             case 4: # In what year did <artist> release their first album?
                 # Get correct answer
-                #question['answers'][0]['answer'] = artist[1][]
-                print("nothing here yet")
+                first_album_index = artist[1]['total']
+                question['answers'][0]['answer'] = int(artist[1]["items"][first_album_index-1]["release_date"][:4])
+
+                # Generate incorrect answer choices
+                num = question['answers'][0]['answer']
+                print(num)
+                answers_generated = 0
+                incorrect_choices = []
+                while answers_generated < 4:
+                    random_num = random.randint(max(1, num - 2), num + 2)
+                    if (random_num != num and random_num not in incorrect_choices):
+                        answers_generated = answers_generated + 1
+                        incorrect_choices.append(random_num)
+
+                # Fill out answers
+                for answerIndex in range(1,4):
+                    question['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]
+                
             case 5: # Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?
                 return
     
