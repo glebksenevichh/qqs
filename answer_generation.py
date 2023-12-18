@@ -1,4 +1,5 @@
 import random
+import json
 
 def generate_artist_answers(artist, questions):
     # Iterate over every question in list
