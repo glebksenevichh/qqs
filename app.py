@@ -234,9 +234,20 @@ def generate_artist_answers(artist, questions):
                 for answerIndex in range(1,4):
                     question['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]
                 
-            case 5: # Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?
-                return
-    
+            case 5: # Which of these is a real song by <artist>?
+                # Get correct answer
+                question['answers'][0]['answer'] = random.choice(artist[2])
+
+                # Get 3 random song titles
+                with open("song_names.json", 'r') as file:
+                    song_names = json.load(file)
+                song_names = song_names.get("songs", [])
+                random_song_names = random.sample(song_names, 3)
+
+                # Fill out wrong answer choices
+                for answerIndex in range (1,4):
+                    question['answers'][answerIndex]['answer'] = random_song_names[answerIndex - 1]
+
     return
 
 def generate_album_answers(artist, questions):
