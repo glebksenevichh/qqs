@@ -62,11 +62,15 @@ def quiz_redirect(artist_id):
     artist_id_valid = is_valid_artist(artist_id)
 
     if artist_id_valid:
-        return artist_id
+        return redirect(url_for(('quiz')))
     else:
         flash('Invalid URL. Please input a valid Spotify Artist URL.')  # Flash a message
         return redirect(url_for('quiz_selection'))  # Redirect to the quiz_selection route
-    
+
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html')
+
 # uses spotify to check if the argument is a valid spotify artist id
 def is_valid_artist(artist_id):
     try: 
