@@ -30,9 +30,13 @@ def generate_artist_answers(artist, questions):
                 for answerIndex in range(1,4):
                     question['answers'][answerIndex]['answer'] = artist['top_tracks']['tracks'][incorrectChoices[answerIndex-1]]['name']
 
-            case 2: # True or False: <artist> is part of 
+            case 2: # True or False: A song by <artist> is in your top 10 most listened-to songs of all time.
                 # Get correct answer
-                print("nothing here yet")
+                answer = any(any(topArtist['name'] == artist['artist_info']['name'] for topArtist in track['artists']) for track in artist['user_top_tracks']['items'])
+
+                # Fill out answers
+                question['answers'][0]['answer'] = str(answer);
+                question['answers'][1]['answer'] = str(not answer);
 
             case 3: # How many albums has <artist> released on Spotify?
                 # Get correct answer

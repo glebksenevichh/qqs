@@ -148,10 +148,12 @@ def generate_questions(artist_id):
     artist_info = sp.artist(artist_id)
     albums = sp.artist_albums(artist_id, album_type='album')
     top_tracks = sp.artist_top_tracks(artist_id)
+    user_top_tracks = sp.current_user_top_tracks(limit=10, time_range='long_term')
     artist = {
         'artist_info': artist_info,
         'albums': albums,
         'top_tracks': top_tracks, 
+        'user_top_tracks': user_top_tracks
         }  # Store all data needed or answers in one artist list
 
     # Load in questions
