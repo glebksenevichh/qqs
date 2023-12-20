@@ -53,7 +53,7 @@ def generate_artist_answers(artist, questions):
 
             case 4: # In what year did <artist> release their first album?
                 # Get correct answer
-                first_album_index = artist[1]['total']
+                first_album_index = artist['albums']['total']
                 question['answers'][0]['answer'] = int(artist['albums']["items"][first_album_index-1]["release_date"][:4])
 
                 # Generate incorrect answer choices
