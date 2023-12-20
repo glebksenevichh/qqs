@@ -25,7 +25,7 @@
         },
         {
             "id": 1,
-            "question": "Which is <artist>'s most popular song?",
+            "question": "Which of these is <artist>'s most popular song?",
             "answers":
             [
                 {
@@ -48,7 +48,7 @@
         },
         {
             "id": 2,
-            "question": "Which song by <artist> have you streamed the most?",
+            "question": "True or False: A song by <artist> is in your top 10 most listened-to songs of all time.",
             "answers":
             [
                 {
