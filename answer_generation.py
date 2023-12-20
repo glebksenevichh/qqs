@@ -9,7 +9,7 @@ def generate_artist_answers(artist, questions):
         match id:
             case 0: # What genre is <artist> associated with?
                 # Get correct answer
-                question['answers'][0]['answer'] = artist[0]['genres'][0]
+                question['answers'][0]['answer'] = artist['artist_info']['genres'][0]
 
                 # Open and load genres list
                 with open('genres.json') as f:
@@ -22,20 +22,20 @@ def generate_artist_answers(artist, questions):
 
             case 1: # Which is <artist>'s most popular song?
                 # Get correct answer
-                question['answers'][0]['answer'] = artist[2]['tracks'][0]['name']
+                question['answers'][0]['answer'] = artist['top_tracks']['tracks'][0]['name']
 
                 # Fill out answer choices with three other songs
                 incorrectChoices = random.sample(range(1, 4), 3)
                 for answerIndex in range(1,4):
-                    question['answers'][answerIndex]['answer'] = artist[2]['tracks'][incorrectChoices[answerIndex-1]]['name']
+                    question['answers'][answerIndex]['answer'] = artist['top_tracks']['tracks'][incorrectChoices[answerIndex-1]]['name']
 
-            case 2: # Which song by <artist> have you streamed the most?
+            case 2: # True or False: <artist> is part of 
                 # Get correct answer
                 print("nothing here yet")
 
             case 3: # How many albums has <artist> released on Spotify?
                 # Get correct answer
-                question['answers'][0]['answer'] = artist[1]['total']
+                question['answers'][0]['answer'] = artist['albums']['total']
 
                 # Generate incorrect answer choices
                 num = question['answers'][0]['answer']
@@ -54,7 +54,7 @@ def generate_artist_answers(artist, questions):
             case 4: # In what year did <artist> release their first album?
                 # Get correct answer
                 first_album_index = artist[1]['total']
-                question['answers'][0]['answer'] = int(artist[1]["items"][first_album_index-1]["release_date"][:4])
+                question['answers'][0]['answer'] = int(artist['albums']["items"][first_album_index-1]["release_date"][:4])
 
                 # Generate incorrect answer choices
                 num = question['answers'][0]['answer']
@@ -73,7 +73,7 @@ def generate_artist_answers(artist, questions):
                 
             case 5: # Which of these is a real song by <artist>?
                 # Get correct answer
-                question['answers'][0]['answer'] = random.choice([track['name'] for track in artist[2]['tracks']])
+                question['answers'][0]['answer'] = random.choice([track['name'] for track in artist['top_tracks']['tracks']])
 
                 # Get 3 random song titles
                 with open("song_names.json", 'r') as file:

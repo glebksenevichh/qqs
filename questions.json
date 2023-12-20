@@ -117,7 +117,7 @@
         },
         {
             "id": 5,
-            "question": "Which of the following songs is not in <artist>'s top 10 most-streamed songs on Spotify?",
+            "question": "Which of these is a real song by <artist>?",
             "answers":
             [
                 {

@@ -148,7 +148,11 @@ def generate_questions(artist_id):
     artist_info = sp.artist(artist_id)
     albums = sp.artist_albums(artist_id, album_type='album')
     top_tracks = sp.artist_top_tracks(artist_id)
-    artist = [artist_info, albums, top_tracks]  # Store all data needed or answers in one artist list
+    artist = {
+        'artist_info': artist_info,
+        'albums': albums,
+        'top_tracks': top_tracks, 
+        }  # Store all data needed or answers in one artist list
 
     # Load in questions
     with open('questions.json', 'r') as file:
@@ -156,7 +160,7 @@ def generate_questions(artist_id):
 
     # Replace artist_questions placeholders
     for artist_question in questions["artist_questions"]:
-        artist_name = artist[0]['name']
+        artist_name = artist['artist_info']['name']
         artist_question["question"] = artist_question["question"].replace("<artist>", artist_name)
     
     # Generate answers for all questions
