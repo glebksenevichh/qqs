@@ -2,6 +2,7 @@ import random
 import json
 
 def generate_artist_answers(artist, questions):
+    ''' Takes in artist data and list of questions. Populates list of artist questions with answer choices '''
     # Iterate over every question in list
     for question in questions['artist_questions']:
         # id of question defines what info we need to pull for our answers
@@ -37,17 +38,8 @@ def generate_artist_answers(artist, questions):
                 # Get correct answer
                 question['answers'][0]['answer'] = artist['albums']['total']
 
-                # Generate incorrect answer choices
-                num = question['answers'][0]['answer']
-                answers_generated = 0
-                incorrect_choices = []
-                while answers_generated < 4:
-                    random_num = random.randint(max(1, num - 2), num + 2)
-                    if (random_num != num and random_num not in incorrect_choices):
-                        answers_generated = answers_generated + 1
-                        incorrect_choices.append(random_num)
-
                 # Fill out answers
+                incorrect_choices = generate_incorrect_nums(question['answers'][0]['answer'])
                 for answerIndex in range(1,4):
                     question['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]
 
@@ -56,18 +48,8 @@ def generate_artist_answers(artist, questions):
                 first_album_index = artist['albums']['total']
                 question['answers'][0]['answer'] = int(artist['albums']["items"][first_album_index-1]["release_date"][:4])
 
-                # Generate incorrect answer choices
-                num = question['answers'][0]['answer']
-                print(num)
-                answers_generated = 0
-                incorrect_choices = []
-                while answers_generated < 4:
-                    random_num = random.randint(max(1, num - 2), num + 2)
-                    if (random_num != num and random_num not in incorrect_choices):
-                        answers_generated = answers_generated + 1
-                        incorrect_choices.append(random_num)
-
                 # Fill out answers
+                incorrect_choices = generate_incorrect_nums(question['answers'][0]['answer'])
                 for answerIndex in range(1,4):
                     question['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]
                 
@@ -87,5 +69,21 @@ def generate_artist_answers(artist, questions):
 
     return
 
+def generate_incorrect_nums(num):
+    ''' Takes in a number and generates 3 random numbers within a +- 2 range of the argument '''
+    answers_generated = 0
+    incorrect_choices = []
+
+    # Keep going until 3 numbers are generated
+    while answers_generated < 4:
+        random_num = random.randint(max(1, num - 2), num + 2)
+        # Make sure new number isn't a duplicate of a previously generated one
+        if (random_num != num and random_num not in incorrect_choices):
+            answers_generated = answers_generated + 1
+            incorrect_choices.append(random_num)
+    return incorrect_choices
+    
+
 def generate_album_answers(artist, questions):
+    ''' Takes in artist data and list of questions. Populates list of album questions with answer choices '''
     return
