@@ -89,7 +89,7 @@ def quiz_redirect(artist_id):
         return redirect(url_for('quiz_selection'))  # Redirect to the quiz_selection route
 
 @app.route('/quiz')
-def quiz():
+def quiz_page():
     return render_template('quiz.html')
 
 # uses spotify to check if the argument is a valid spotify artist id
