@@ -2,9 +2,12 @@
 
 # import necessary modules
 import time
+import json
 import os
 import spotipy
+
 from spotipy.oauth2 import SpotifyOAuth
+from answer_generation import *
 from flask import Flask, request, url_for, session, redirect, render_template, flash
 
 # initialize Flask app
@@ -45,9 +48,27 @@ def redirect_page():
     # redirect the user to the quiz_selection route
     return redirect(url_for('quiz_selection',_external=True))
 
- # route to save the Discover Weekly songs to a playlist
+ # route to render quiz selection page
 @app.route('/quizSelection')
 def quiz_selection():
+    top_artists = get_top_artists() # get top 5 artists name, id, and image
+    return render_template('quiz_select.html', top_artists=top_artists)
+
+#   tbd
+#   arguments:
+#   id = spotify artist id
+@app.route('/quiz/<string:id>')
+def quiz(id):
+    questions = generate_questions(id)
+    return questions
+
+#   converts spotify artist url to artist id
+#   arguments:
+#   artist_url = spotify artist url
+@app.route('/urlToId', methods=['POST'])
+def grab_url():
+    artist_url = request.form.get('artist_url')
+    return artist_url
 
     top_artists = get_top_artists()
 
@@ -161,5 +182,44 @@ def get_top_artists():
         })
     
     return top_artists
+
+def generate_questions(artist_id):
+    # Boilerplate Spotify authorization 
+    try: 
+        # get the token info from the session
+        token_info = get_token()
+    except:
+        # if the token info is not found, redirect the user to the login route
+        print('User not logged in')
+        return redirect("/")
+    # create a Spotipy instance with the access token
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+
+    # Get artist data
+    artist_info = sp.artist(artist_id)
+    albums = sp.artist_albums(artist_id, album_type='album')
+    top_tracks = sp.artist_top_tracks(artist_id)
+    user_top_tracks = sp.current_user_top_tracks(limit=10, time_range='long_term')
+    artist = {
+        'artist_info': artist_info,
+        'albums': albums,
+        'top_tracks': top_tracks, 
+        'user_top_tracks': user_top_tracks
+        }  # Store all data needed or answers in one artist list
+
+    # Load in questions
+    with open('questions.json', 'r') as file:
+        questions = json.load(file)
+
+    # Replace artist_questions placeholders
+    for artist_question in questions["artist_questions"]:
+        artist_name = artist['artist_info']['name']
+        artist_question["question"] = artist_question["question"].replace("<artist>", artist_name)
+    
+    # Generate answers for all questions
+    generate_artist_answers(artist, questions)
+    generate_album_answers(artist, questions)
+
+    return questions
 
 app.run(debug=True)
