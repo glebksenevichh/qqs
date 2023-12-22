@@ -90,4 +90,42 @@ def generate_incorrect_nums(num):
 
 def generate_album_answers(artist, questions):
     ''' Takes in artist data and list of questions. Populates list of album questions with answer choices '''
+
+    # Iterate over every album question
+    for question in questions['album_questions']:
+        # id of question defines what info we need to pull for our answers
+        id = question['id']
+        match id:
+            case 1: # Which album came first: '<album1>' or '<album2>'?
+                albums = random.sample(artist['albums'], 2)
+                album1_name = albums[0].get('name')
+                album2_name = albums[1].get('name')
+
+                # Replace album text placeholder with actual album names
+                question["question"] = question["question"].replace("<album1>", album1_name)
+                question["question"] = question["question"].replace("<album2>", album2_name)
+
+                # Fill out answer options
+                album1_correct = albums[0].get('release_date') < albums[1].get('release_date')
+                question['answers'][0]['answer'] = albums[int(not album1_correct)].get('name')
+                question['answers'][1]['answer'] = albums(int(album1_correct)).get('name')
+
+
+            case 2: # Name a song from <album>.
+                print("baba booey")
+            case 3: # What year did <album> release?
+                album = random.sample(artist['albums'])
+                
+                # Replace album text placeholder with actual album name
+                question["question"] = question["question"].replace("<album>", album.get('name'))
+
+                # Fill out correct answer
+                question['answers'][0]['answer'] = album.get('release_date')  
+
+                # Fill out incorrect answer choices
+                incorrect_choices = generate_incorrect_nums(question['answers'][0]['answer'])
+                for answerIndex in range(1,4):
+                    question['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]      
+
+
     return
