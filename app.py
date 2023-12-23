@@ -47,7 +47,7 @@ def redirect_page():
 @app.route('/quizSelection')
 def quiz_selection():
     top_artists = get_top_artists()                                         # get top 5 artists name, id, and image
-    return render_template('quiz_select.html', top_artists=top_artists)     # display the page with top_artists as an argument
+    return render_template('select.html', top_artists=top_artists)     # display the page with top_artists as an argument
 
 @app.route('/quiz_redirect/<string:artist_id>')
 def quiz_redirect(artist_id):
