@@ -1,6 +1,9 @@
 import random
 import json
 
+def fill_out_questions(sp):
+    print('baba booeye')
+
 def generate_artist_answers(artist, questions):
     ''' Takes in artist data and list of questions. Populates list of artist questions with answer choices '''
     # Iterate over every question in list

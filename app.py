@@ -58,7 +58,11 @@ def quiz_redirect(artist_id):
     if artist_id_valid:
         #If artist ID is valid, generate questions and pass them as an argument to /quiz
         questions = generate_questions(artist_id)
-        return redirect(url_for('quiz', quiz_questions=questions))
+
+        ####
+        return questions
+        #return redirect(url_for('quiz', quiz_questions=questions))
+        ####
     else:
         #If artist ID is invalid, send a flash message and redirect to same page
         flash('Invalid URL. Please input a valid Spotify Artist URL.')  # Flash a message
@@ -178,6 +182,7 @@ def generate_questions(artist_id):
     # create a Spotipy instance with the access token
     sp = spotipy.Spotify(auth=token_info['access_token'])
 
+    fill_out_questions(sp)
     # Get artist data
     artist_info = sp.artist(artist_id)
     albums = sp.artist_albums(artist_id, album_type='album')
