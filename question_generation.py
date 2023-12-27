@@ -1,8 +1,34 @@
 import random
 import json
 
-def fill_out_questions(sp):
-    print('baba booeye')
+def fill_out_questions(sp, artist_id):
+    # Get artist data
+    artist_info = sp.artist(artist_id)
+    albums = sp.artist_albums(artist_id, album_type='album')
+    top_tracks = sp.artist_top_tracks(artist_id)
+    user_top_tracks = sp.current_user_top_tracks(limit=10, time_range='long_term')
+    artist = {
+        'artist_info': artist_info,
+        'albums': albums,
+        'top_tracks': top_tracks, 
+        'user_top_tracks': user_top_tracks
+        }  # Store all data needed or answers in one artist list
+    
+
+    # Load in questions
+    with open('questions.json', 'r') as file:
+        questions = json.load(file)
+
+    # Replace artist_questions placeholders
+    for artist_question in questions["artist_questions"]:
+        artist_name = artist['artist_info']['name']
+        artist_question["question"] = artist_question["question"].replace("<artist>", artist_name)
+
+    # Generate answers for all questions
+    generate_artist_answers(artist, questions)
+    generate_album_answers(artist, questions)
+
+    return questions
 
 def generate_artist_answers(artist, questions):
     ''' Takes in artist data and list of questions. Populates list of artist questions with answer choices '''
@@ -100,9 +126,9 @@ def generate_album_answers(artist, questions):
         id = question['id']
         match id:
             case 1: # Which album came first: '<album1>' or '<album2>'?
-                albums = random.sample(artist['albums'], 2)
-                album1_name = albums[0].get('name')
-                album2_name = albums[1].get('name')
+                albums = random.sample(list(artist['albums']['items']), 2)
+                album1_name = albums[0]['name']
+                album2_name = albums[1]['name']
 
                 # Replace album text placeholder with actual album names
                 question["question"] = question["question"].replace("<album1>", album1_name)
@@ -110,20 +136,21 @@ def generate_album_answers(artist, questions):
 
                 # Fill out answer options
                 album1_correct = albums[0].get('release_date') < albums[1].get('release_date')
-                question['answers'][0]['answer'] = albums[int(not album1_correct)].get('name')
-                question['answers'][1]['answer'] = albums(int(album1_correct)).get('name')
+                question['answers'][0]['answer'] = albums[int(not album1_correct)]['name']
+                question['answers'][1]['answer'] = albums[int(album1_correct)]['name']
 
 
             case 2: # Name a song from <album>.
                 print("baba booey")
             case 3: # What year did <album> release?
-                album = random.sample(artist['albums'])
+                album = random.choice(list(artist['albums']['items']))
                 
                 # Replace album text placeholder with actual album name
-                question["question"] = question["question"].replace("<album>", album.get('name'))
+                question["question"] = question["question"].replace("<album>", album['name'])
 
                 # Fill out correct answer
-                question['answers'][0]['answer'] = album.get('release_date')  
+                release_year = album.get('release_date').split('-')[0]
+                question['answers'][0]['answer'] = int(release_year)
 
                 # Fill out incorrect answer choices
                 incorrect_choices = generate_incorrect_nums(question['answers'][0]['answer'])
