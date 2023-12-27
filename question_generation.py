@@ -13,7 +13,6 @@ def fill_out_questions(sp, artist_id):
         'top_tracks': top_tracks, 
         'user_top_tracks': user_top_tracks
         }  # Store all data needed or answers in one artist list
-    
 
     # Load in questions
     with open('questions.json', 'r') as file:
