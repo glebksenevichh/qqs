@@ -1,5 +1,4 @@
-{
-  "music_genres": [
+[
     "pop", "dance",
     "rock", "alternative",
     "jazz", "blues",
@@ -28,5 +27,5 @@
     "electro swing", "swing revival",
     "dubstep", "drum and bass",
     "baroque", "romantic"
-  ]
-}
+]
+

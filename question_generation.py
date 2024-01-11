@@ -1,5 +1,6 @@
 import random
 import json
+import spotipy
 
 def fill_out_questions(sp, artist_id):
     # Get artist data
@@ -8,6 +9,7 @@ def fill_out_questions(sp, artist_id):
     top_tracks = sp.artist_top_tracks(artist_id)
     user_top_tracks = sp.current_user_top_tracks(limit=10, time_range='long_term')
     artist = {
+        'api': sp,
         'artist_info': artist_info,
         'albums': albums,
         'top_tracks': top_tracks, 
@@ -41,11 +43,11 @@ def generate_artist_answers(artist, questions):
                 question['answers'][0]['answer'] = artist['artist_info']['genres'][0]
 
                 # Open and load genres list
-                with open('genres.json') as f:
-                    genres = json.load(f)['music_genres']
-                
+                with open('genres.json') as file:
+                    genres = json.load(file)
+
                 # Fill out answer choices with three random genres
-                genres = random.sample(genres, 3)   # Select 4 random genres from list
+                genres = random.sample(genres, 3)   # Select 3 random genres from list
                 for answerIndex in range(1, 4):
                     question['answers'][answerIndex]['answer'] = genres[answerIndex-1]
 
@@ -141,6 +143,7 @@ def generate_album_answers(artist, questions):
 
             case 2: # Name a song from <album>.
                 print("baba booey")
+
             case 3: # What year did <album> release?
                 album = random.choice(list(artist['albums']['items']))
                 
