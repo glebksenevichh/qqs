@@ -107,16 +107,6 @@ def is_valid_artist(artist_id):
     print(f"Artist ID {artist_id} is not valid.")
     return False
 
-<<<<<<< HEAD
-    top_artists = get_top_artists()
-    
-    return render_template('quiz_select.html', top_artists=top_artists)
-   # Get user's top 5 most listened to artists from medium_term
-   # Strip the JSON down to just artist, image, and ID
-   # return JSON
-=======
->>>>>>> 3df1908fbab7e9079b5ad483e0809282cea5d836
-
 # function to get the token info from the session
 def get_token():
     token_info = session.get(TOKEN_INFO, None)
