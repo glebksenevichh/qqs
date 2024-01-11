@@ -1,11 +1,9 @@
-{% extends "base.html" %}
-
-{% block title %}Queue Q's{% endblock %}
-
-{% block content %}
-    <div class="container">
-        <h1>Welcome to Queue Q's</h1>
-        <p>How much of a fan are you?<br>Test your music knowledge!</p>
-        <a href="/login" class="btn btn-primary">Sign In</a>
-    </div>
+{% extends "base.html" %} {% block title %}Queue Q's{% endblock %} {% block
+content %}
+<!-- Hero Section -->
+<section class="container text-center py-5">
+  <h1 class="display-4">Welcome to Queue Q's</h1>
+  <p class="lead">How much of a fan are you? Test your music knowledge!</p>
+  <a href="/login"><button class="btn btn-success">Login with Spotify</button></a>
+</section>
 {% endblock %}

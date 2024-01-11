@@ -2,10 +2,13 @@
 
 # import necessary modules
 import time
+import json
 import os
 import spotipy
+
 from spotipy.oauth2 import SpotifyOAuth
-from flask import Flask, request, url_for, session, redirect, render_template
+from question_generation import *
+from flask import Flask, request, url_for, session, redirect, render_template, flash
 
 # initialize Flask app
 app = Flask(__name__)
@@ -34,27 +37,85 @@ def login():
 # route to handle the redirect URI after authorization
 @app.route('/redirect')
 def redirect_page():
-    # clear the session
-    session.clear()
-    # get the authorization code from the request parameters
-    code = request.args.get('code')
-    # exchange the authorization code for an access token and refresh token
-    token_info = create_spotify_oauth().get_access_token(code)
-    # save the token info in the session
-    session[TOKEN_INFO] = token_info
-    # redirect the user to the quiz_selection route
-    return redirect(url_for('quiz_selection',_external=True))
+    session.clear()                                             # clear the session
+    code = request.args.get('code')                             # get the authorization code from the request parameters
+    token_info = create_spotify_oauth().get_access_token(code)  # exchange the authorization code for an access token and refresh token
+    session[TOKEN_INFO] = token_info                            # save the token info in the session
+    return redirect(url_for('quiz_selection',_external=True))   # redirect the user to the quiz_selection route
 
-# route to save the Discover Weekly songs to a playlist
+ # route to render quiz selection page
 @app.route('/quizSelection')
 def quiz_selection():
+    top_artists = get_top_artists()                                         # get top 5 artists name, id, and image
+    return render_template('select.html', top_artists=top_artists)     # display the page with top_artists as an argument
 
+@app.route('/quiz_redirect/<string:artist_id>')
+def quiz_redirect(artist_id):
+    
+    # Check for valid input
+    artist_id_valid = is_valid_artist(artist_id)
+
+    if artist_id_valid:
+        #If artist ID is valid, generate questions and pass them as an argument to /quiz
+        questions = generate_questions(artist_id)
+
+        ####
+        return questions
+        #return redirect(url_for('quiz', quiz_questions=questions))
+        ####
+    else:
+        #If artist ID is invalid, send a flash message and redirect to same page
+        flash('Invalid URL. Please input a valid Spotify Artist URL.')  # Flash a message
+        return redirect(url_for('quiz_selection'))                      # Redirect to the quiz_selection route
+
+@app.route('/quiz')
+def quiz_page():
+    #Retrieves quiz questions as an argument from quiz_redirect redirect
+    quiz_questions = request.args.get('quiz_questions')
+
+    return render_template('quiz.html')
+
+# uses spotify to check if the argument is a valid spotify artist id
+# argument:
+# string artist_id
+# returns:
+# boolean: true if artist ID corresponds to a spotify artist (is valid), false if not.
+def is_valid_artist(artist_id):
+    try: 
+        # get the token info from the session
+        token_info = get_token()
+    except:
+        # if the token info is not found, redirect the user to the login route
+        print('User not logged in')
+        return redirect("/")
+    
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+
+    if(artist_id == 'invalid'):         #ID will be set to 'invalid' if it is such
+        #print(f"URL is not valid.")     
+        return False                    
+    try:
+        # Attempt to retrieve information about the artist
+        artist_info = sp.artist(artist_id)
+        if artist_info:
+            #print(f"Artist ID {artist_id} is valid. Artist name: {artist_info['name']}")
+            return True
+    except spotipy.SpotifyException as e:
+        # Handle exceptions (e.g., invalid artist ID)
+        print(f"Error: {e}")
+    
+    print(f"Artist ID {artist_id} is not valid.")
+    return False
+
+<<<<<<< HEAD
     top_artists = get_top_artists()
     
     return render_template('quiz_select.html', top_artists=top_artists)
    # Get user's top 5 most listened to artists from medium_term
    # Strip the JSON down to just artist, image, and ID
    # return JSON
+=======
+>>>>>>> 3df1908fbab7e9079b5ad483e0809282cea5d836
 
 # function to get the token info from the session
 def get_token():
@@ -117,5 +178,21 @@ def get_top_artists():
         })
     
     return top_artists
+
+def generate_questions(artist_id):
+    # Boilerplate Spotify authorization 
+    try: 
+        # get the token info from the session
+        token_info = get_token()
+    except:
+        # if the token info is not found, redirect the user to the login route
+        print('User not logged in')
+        return redirect("/")
+    # create a Spotipy instance with the access token
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+
+    questions = fill_out_questions(sp, artist_id)
+
+    return questions
 
 app.run(debug=True)

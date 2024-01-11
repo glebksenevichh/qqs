@@ -1,0 +1,213 @@
+{
+    "artist_questions": [
+        {
+            "id": 0,
+            "question": "What genres is <artist> most commonly associated with?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
+        },
+        {
+            "id": 1,
+            "question": "Which of these is <artist>'s most popular song?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "question": "True or False: A song by <artist> is in your top 10 most listened-to songs of all time.",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "question": "How many albums has <artist> released on Spotify?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "question": "In what year did <artist> release their first album?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "question": "Which of these is a real song by <artist>?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
+        }
+    ],
+    "album_questions": [
+        {
+            "id": 1,
+            "question": "Which album came first: '<album1>' or '<album2>'?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "question": "Name a song from <album>.",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
+        },
+        {
+            "id": 3,
+            "question": "What year did <album> release?",
+            "answers":
+            [
+                {
+                    "answer": "",
+                    "correct": true
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                },
+                {
+                    "answer": "",
+                    "correct": false
+                }
+            ] 
+        }
+    ]
+}
