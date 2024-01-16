@@ -1,213 +1,67 @@
 {
-    "artist_questions": [
+    "questions": [
         {
             "id": 0,
-            "question": "What genres is <artist> most commonly associated with?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ] 
+            "type": "",
+            "MC": "Which of these genres is <artist> most commonly associated with?",
+            "OE": "What genre is <artist> most commonly associated with?",
+            "TF": "True or False: <artist> is most commonly associated with <genre>."
         },
         {
             "id": 1,
-            "question": "Which of these is <artist>'s most popular song?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ]
+            "type": "",
+            "MC": "Which of these is <artist>'s most popular song?",
+            "OE": "What is <artist>'s most popular song?",
+            "TF": "True or False: <song> is <artist>'s most popular song."
         },
         {
             "id": 2,
-            "question": "True or False: A song by <artist> is in your top 10 most listened-to songs of all time.",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ]
+            "type": "TF",
+            "MC": "",
+            "OE": "",
+            "TF": "True or False: A song by <artist> is in your top 10 most listened-to songs of all time."
         },
         {
             "id": 3,
-            "question": "How many albums has <artist> released on Spotify?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ]
+            "type": "",
+            "MC": "How many albums has <artist> released on Spotify?",
+            "OE": "How many albums has <artist> released on Spotify?",
+            "TF": "True or False: <artist> has released <number> albums on Spotify."
         },
         {
             "id": 4,
-            "question": "In what year did <artist> release their first album?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ]
+            "type": "",
+            "MC": "In what year did <artist> release their first album?",
+            "OE": "In what year did <artist> release their first album?",
+            "TF": "True or False: <artist> released their first album in <year>."
         },
         {
             "id": 5,
-            "question": "Which of these is a real song by <artist>?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ] 
-        }
-    ],
-    "album_questions": [
-        {
-            "id": 1,
-            "question": "Which album came first: '<album1>' or '<album2>'?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ]
+            "type": "",
+            "MC": "Which of these is a real song by <artist>?",
+            "OE": "Name a song by <artist>.",
+            "TF": "True or False: <song> is the name of a song made by <artist>."
         },
         {
-            "id": 2,
-            "question": "Name a song from <album>.",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ] 
+            "id": 6,
+            "type": "",
+            "MC": "Which album came first: '<album1>' or '<album2>'?",
+            "OE": "Which album came first: '<album1>' or '<album2>'?",
+            "TF": "True or False: '<album1>' was released on Spotify before '<album2>'?"
         },
         {
-            "id": 3,
-            "question": "What year did <album> release?",
-            "answers":
-            [
-                {
-                    "answer": "",
-                    "correct": true
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                },
-                {
-                    "answer": "",
-                    "correct": false
-                }
-            ] 
+            "id": 7,
+            "type": "",
+            "MC": "",
+            "OE": "Name a song from '<album>'.",
+            "TF": "True or False: '<album>' has a track named <song>."
+        },
+        {
+            "id": 8,
+            "type": "",
+            "MC": "What year did <album> release?",
+            "OE": "What year did <album> release?",
+            "TF": "True or False: '<album>' released in <year>."
         }
-    ]
+    ] 
 }
