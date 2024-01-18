@@ -7,7 +7,7 @@ import os
 import spotipy
 
 from spotipy.oauth2 import SpotifyOAuth
-from question_generation import *
+from answer_generation import *
 from flask import Flask, request, url_for, session, redirect, render_template, flash
 
 # initialize Flask app
@@ -181,8 +181,9 @@ def generate_questions(artist_id):
     # create a Spotipy instance with the access token
     sp = spotipy.Spotify(auth=token_info['access_token'])
 
-    questions = fill_out_questions(sp, artist_id)
+    # fill out questions
+    answers = fill_out_answers(sp, artist_id)
 
-    return questions
+    return answers
 
 app.run(debug=True)
