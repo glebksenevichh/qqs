@@ -38,8 +38,8 @@
         {
             "id": 5,
             "type": "",
-            "MC": "Which album came first: '<album1>' or '<album2>'?",
-            "OE": "Which album came first: '<album1>' or '<album2>'?",
+            "MC": "Which of these albums was released first?",
+            "OE": "Which album came first: '<album1>' or '<album2>'",
             "TF": "True or False: '<album1>' was released on Spotify before '<album2>'?"
         },
         {
