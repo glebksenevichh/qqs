@@ -6,18 +6,20 @@ def fill_out_answers(sp, artist_id):
     # Get artist data
     artist_info = sp.artist(artist_id)
     albums = sp.artist_albums(artist_id, album_type='album')
+    random_album_tracks = sp.album_tracks(random.choice(albums['items'])['id'])
     top_tracks = sp.artist_top_tracks(artist_id)
     user_top_tracks = sp.current_user_top_tracks(limit=10, time_range='long_term')
     artist = {
         'artist_info': artist_info,
         'albums': albums,
         'top_tracks': top_tracks, 
-        'user_top_tracks': user_top_tracks
+        'user_top_tracks': user_top_tracks,
+        'random_album_tracks': random_album_tracks
         }  # Store all data needed or answers in one artist list
 
     # Load in questions
     with open('json/questions.json') as file:
-        questions = json.load(file)
+        questions = json.load(file)['questions']
 
     # Generate answers for all questions
     answers = generate_answers(artist, questions)
@@ -28,12 +30,14 @@ def generate_answers(artist, questions):
     ''' Takes in artist data and list of questions. Populates list of questions with appropriate answer choices '''
     answers = []
 
-    with open('json/question_answers_templates.json', 'r') as f:
+    with open('json/question_answers_template.json') as f:
         mc_answers_template = json.load(f)['mc']
 
     # Iterate over every question in list
-    for id in questions['id']:
+    for item in questions:
+        id = item['id']
         question_answers = copy.deepcopy(mc_answers_template)
+        question_answers['id'] = id
         # id of question defines what info we need to pull for our answers
         match id:
             case 0: # What genre is <artist> associated with?
@@ -95,18 +99,24 @@ def generate_answers(artist, questions):
                     albums = random.sample(list(artist['albums']['items']), 4)
 
                 # Fill out answer options
-                question_answers['answers'][0]['answer'] = min(albums[0]['release_date'], 
-                                                               albums[1]['release_date'], 
-                                                               albums[2]['release_date'],
-                                                               albums[3]['release_date'])
-                albums.remove(question_answers['answers'][0]['answer'])
+                question_answers['answers'][0]['answer'] = min(albums, key=lambda x: x['release_date'])
 
                 for answerIndex in range(1,4):
                     question_answers['answers'][answerIndex]['answer'] = albums[answerIndex]['name']
+                question_answers['answers'][0]['answer'] = question_answers['answers'][0]['answer']['name']
 
             case 6: # Name a song from <album>.
-                print("baba booey")
+                question_answers['answers'][0]['answer'] = random.choice(artist['random_album_tracks']['items'])['name']
 
+                # Get 3 random song titles
+                with open("json/song_names.json", 'r') as file:
+                    song_names = json.load(file)
+                song_names = random.sample(song_names, 3)
+
+                # Fill out wrong answer choices
+                for answerIndex in range (1,4):
+                    question_answers['answers'][answerIndex]['answer'] = song_names[answerIndex - 1]
+                    
             case 7: # What year did <album> release?
                 album = random.choice(list(artist['albums']['items']))
 
@@ -117,7 +127,9 @@ def generate_answers(artist, questions):
                 # Fill out incorrect answer choices
                 incorrect_choices = generate_incorrect_nums(question_answers['answers'][0]['answer'])
                 for answerIndex in range(1,4):
-                    question_answers['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1] 
+                    question_answers['answers'][answerIndex]['answer'] = incorrect_choices[answerIndex-1]
+
+        # add question answers to answers dictionary
         answers.append(question_answers)
 
     return answers

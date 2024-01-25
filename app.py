@@ -4,7 +4,7 @@
 import time
 import os
 import spotipy
-import answer_generation
+from answer_generation import fill_out_answers
 
 from spotipy.oauth2 import SpotifyOAuth
 from flask import Flask, request, url_for, session, redirect, render_template, flash
