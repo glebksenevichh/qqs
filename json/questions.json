@@ -1,0 +1,60 @@
+{
+    "questions": [
+        {
+            "id": 0,
+            "type": "",
+            "MC": "Which of these genres is <artist> most commonly associated with?",
+            "OE": "What genre is <artist> most commonly associated with?",
+            "TF": "True or False: <artist> is most commonly associated with <genre>."
+        },
+        {
+            "id": 1,
+            "type": "",
+            "MC": "Which of these is <artist>'s most popular song?",
+            "OE": "What is <artist>'s most popular song?",
+            "TF": "True or False: <song> is <artist>'s most popular song."
+        },
+        {
+            "id": 2,
+            "type": "",
+            "MC": "How many albums has <artist> released on Spotify?",
+            "OE": "How many albums has <artist> released on Spotify?",
+            "TF": "True or False: <artist> has released <number> albums on Spotify."
+        },
+        {
+            "id": 3,
+            "type": "",
+            "MC": "In what year did <artist> release their first album?",
+            "OE": "In what year did <artist> release their first album?",
+            "TF": "True or False: <artist> released their first album in <year>."
+        },
+        {
+            "id": 4,
+            "type": "",
+            "MC": "Which of these is a real song by <artist>?",
+            "OE": "Name a song by <artist>.",
+            "TF": "True or False: <song> is the name of a song made by <artist>."
+        },
+        {
+            "id": 5,
+            "type": "",
+            "MC": "Which of these albums was released first?",
+            "OE": "Which album came first: '<album1>' or '<album2>'",
+            "TF": "True or False: '<album1>' was released on Spotify before '<album2>'?"
+        },
+        {
+            "id": 6,
+            "type": "",
+            "MC": "Which of these is a song from <album>?",
+            "OE": "Name a song from '<album>'.",
+            "TF": "True or False: '<album>' has a track named <song>."
+        },
+        {
+            "id": 7,
+            "type": "",
+            "MC": "What year did <album> release?",
+            "OE": "What year did <album> release?",
+            "TF": "True or False: '<album>' released in <year>."
+        }
+    ] 
+}

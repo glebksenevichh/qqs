@@ -2,12 +2,11 @@
 
 # import necessary modules
 import time
-import json
 import os
 import spotipy
+from answer_generation import fill_out_answers
 
 from spotipy.oauth2 import SpotifyOAuth
-from question_generation import *
 from flask import Flask, request, url_for, session, redirect, render_template, flash
 
 # initialize Flask app
@@ -57,7 +56,7 @@ def quiz_redirect(artist_id):
 
     if artist_id_valid:
         #If artist ID is valid, generate questions and pass them as an argument to /quiz
-        questions = generate_questions(artist_id)
+        questions = generate_answers(artist_id)
 
         ####
         return questions
@@ -106,7 +105,6 @@ def is_valid_artist(artist_id):
     
     print(f"Artist ID {artist_id} is not valid.")
     return False
-
 
 # function to get the token info from the session
 def get_token():
@@ -170,7 +168,7 @@ def get_top_artists():
     
     return top_artists
 
-def generate_questions(artist_id):
+def generate_answers(artist_id):
     # Boilerplate Spotify authorization 
     try: 
         # get the token info from the session
@@ -182,8 +180,9 @@ def generate_questions(artist_id):
     # create a Spotipy instance with the access token
     sp = spotipy.Spotify(auth=token_info['access_token'])
 
-    questions = fill_out_questions(sp, artist_id)
+    # fill out questions
+    answers = fill_out_answers(sp, artist_id)
 
-    return questions
+    return answers
 
 app.run(debug=True)

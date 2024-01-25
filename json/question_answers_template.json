@@ -1,0 +1,50 @@
+{
+    "mc":
+    {
+        "id": -1,
+        "answers":
+        [
+            {
+                "answer": "",
+                "correct": true
+            },
+            {
+                "answer": "",
+                "correct": false
+            },
+            {
+                "answer": "",
+                "correct": false
+            },
+            {
+                "answer": "",
+                "correct": false
+            }
+        ]
+    },
+    "oe":
+    {
+        "id": -1,
+        "answers":
+        [
+            {
+                "answer": ""
+            }
+        ]
+    },
+    "tf":
+    {
+        "id": -1,
+        "answers":
+        [
+            {
+                "answer": "",
+                "correct": true
+            },
+            {
+                "answer": "",
+                "correct": false
+            }
+        ]   
+    }
+}
