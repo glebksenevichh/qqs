@@ -97,7 +97,7 @@ def quiz(artist_uri):
     # Extract Spotify URL from artist information
     spotify_url = artist_info['external_urls']['spotify']
 
-    fill_out_answers(sp,artist_info['id'])
+    print(fill_out_answers(sp,artist_info['id']))
 
     return redirect(spotify_url)
 

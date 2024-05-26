@@ -21,6 +21,7 @@ def fill_out_answers(sp, artist_id):
     with open('json/questions.json') as file:
         questions = json.load(file)['questions']
 
+    
     # Generate answers for all questions
     answers = generate_answers(artist, questions)
 
@@ -46,7 +47,7 @@ def generate_answers(artist, questions):
 
                 # Open and load genres list
                 with open('json/genres.json') as f:
-                    genres = json.load(f)['music_genres']
+                    genres = json.load(f)
                 
                 # Fill out answer choices with three random genres
                 genres = random.sample(genres, 3)   # Select 4 random genres from list
