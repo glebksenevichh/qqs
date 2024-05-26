@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Pick A Quiz{% endblock %}
+
+{% block content %}
+<div class="container"  style="text-align:center; max-width: 320px;">
+    <p class="title is-4">Results for "{{search}}":</p>
+    {% for artist in artists %}
+    
+    <div class="card">
+        <a href="/quiz/{{artist['uri']}}">
+            <div class="card-image">
+                <figure class="image">
+                    <img
+                    src="{{artist['img']}}"
+                    alt="{{artist['name']}} Image" 
+                    />
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <p class="title is-4">{{artist['name']}}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
