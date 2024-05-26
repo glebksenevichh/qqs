@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Quiz Results{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="title">Quiz Results</h1>
+        <p class="subtitle py-4">You answered {{ correct_count }} out of {{ total_questions }} questions correctly,
+            scoring
+            {{ score_percentage }}%.</p>
+
+
+        <button id="toggleButton" class="button is-link">View Results</button>
+
+        <div id="detailedResults" class="dropdown-content pt-5" style="display: none;">
+            {% for result in results %}
+            <div class="box">
+                {% if result.is_correct %}
+                <span class="icon has-text-success" style="display: inline-block;">
+                    <img src="{{ url_for('static', filename='correct.png') }}" alt="Correct">
+                </span>
+                {% else %}
+                <span class="icon has-text-danger" style="display: inline-block;">
+                    <img src="{{ url_for('static', filename='incorrect.png') }}" alt="Incorrect">
+                </span>
+                {% endif %}
+                <p class="title mb-2" style="display: inline-block;">Question {{ result.question_id }}</span>
+                <p>Your answer: {{ result.user_answer }}</p>
+                <p>Correct answer: {{ result.correct_answer }}</p>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('toggleButton').addEventListener('click', function () {
+        var detailedResults = document.getElementById('detailedResults');
+        if (detailedResults.style.display === 'none') {
+            detailedResults.style.display = 'block';
+            this.textContent = 'Hide Results';
+        } else {
+            detailedResults.style.display = 'none';
+            this.textContent = 'View Results';
+        }
+    });
+</script>
+{% endblock %}

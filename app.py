@@ -97,9 +97,46 @@ def quiz(artist_uri):
     # Extract Spotify URL from artist information
     spotify_url = artist_info['external_urls']['spotify']
 
-    print(fill_out_answers(sp,artist_info['id']))
+    quiz_data = fill_out_answers(sp,artist_info['id'])
 
-    return redirect(spotify_url)
+    # Store the quiz data in the session
+    session['quiz_data'] = quiz_data
+
+    return render_template('quiz.html',quiz_data=quiz_data)
+
+@app.route('/submit_quiz', methods=['POST'])
+def submit_quiz():
+    user_answers = {}
+    quiz_data = session.get('quiz_data', [])
+
+    for question in quiz_data:
+        question_id = question['id']
+        selected_answer = request.form.get(f'question_{question_id}')
+        user_answers[question_id] = selected_answer
+
+    # Compare user answers with the correct answers
+    correct_count = 0
+    total_questions = len(quiz_data)
+    results = []
+    for question in quiz_data:
+        question_id = question['id']
+        correct_answer = next((ans for ans in question['answers'] if ans['correct']), None)
+        user_answer = user_answers.get(question_id)
+        is_correct = user_answer == correct_answer['answer']
+        if is_correct:
+            correct_count += 1
+        results.append({
+            'question_id': question_id,
+            'user_answer': user_answer,
+            'correct_answer': correct_answer['answer'],
+            'is_correct': is_correct
+        })
+
+    # Calculate the percentage score
+    score_percentage = (correct_count / total_questions) * 100 if total_questions > 0 else 0
+
+    return render_template('results.html', results=results, correct_count=correct_count, total_questions=total_questions, score_percentage=score_percentage)
+
 
 @app.route('/process_input', methods=['POST'])
 def process_input():

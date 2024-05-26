@@ -1,50 +1,33 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Take the Quiz{% endblock %}
+{% block title %}Quiz{% endblock %}
 
 {% block content %}
-<h1 class="title">Quiz</h1>
-<form action="{{ url_for('submit') }}" method="post">
-    {% for idx, question in enumerate(questions) %}
-    <div class="box">
-        <p class="subtitle">{{ loop.index }}. {{ question['question'] }}</p>
-        {% if question['type'] == 'multiple_choice' %}
-        {% for option in question['options'] %}
-        <div class="field">
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" name="question-{{ idx }}" value="{{ option }}">
-                    {{ option }}
-                </label>
+<section class="section">
+    <div class="container">
+        <h1 class="title"> artist-name Quiz</h1>
+        <form action="/submit_quiz" method="POST">
+            {% for question in quiz_data %}
+            <div class="box">
+                <p class="title mb-2">Question {{ question.id }}</p>
+                <div class="field">
+                    {% for answer in question.answers %}
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="question_{{ question.id }}" value="{{ answer.answer }}">
+                            {{ answer.answer }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-        {% endfor %}
-        {% elif question['type'] == 'true_false' %}
-        <div class="field">
-            <div class="control">
-                <label class="radio">
-                    <input type="radio" name="question-{{ idx }}" value="True">
-                    True
-                </label>
-                <label class="radio">
-                    <input type="radio" name="question-{{ idx }}" value="False">
-                    False
-                </label>
+            {% endfor %}
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link" type="submit">Submit</button>
+                </div>
             </div>
-        </div>
-        {% elif question['type'] == 'short_answer' %}
-        <div class="field">
-            <div class="control">
-                <input class="input" type="text" name="question-{{ idx }}">
-            </div>
-        </div>
-        {% endif %}
+        </form>
     </div>
-    {% endfor %}
-    <div class="field">
-        <div class="control">
-            <button class="button is-primary" type="submit">Submit</button>
-        </div>
-    </div>
-</form>
+</section>
 {% endblock %}
