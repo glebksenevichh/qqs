@@ -32,7 +32,7 @@ def generate_answers(artist, questions):
 
     with open('json/question_answers_template.json') as f:
         mc_answers_template = json.load(f)['mc']
-
+    
     # Iterate over every question in list
     for item in questions:
         id = item['id']
